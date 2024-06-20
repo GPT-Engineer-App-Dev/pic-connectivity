@@ -1,9 +1,11 @@
-import { Box, Container, VStack, Heading, Text, Image, Flex, Button, Input } from "@chakra-ui/react";
-import { FaCamera } from "react-icons/fa";
+import { Box, Container, VStack, Heading, Text, Image, Flex, Button, Input, IconButton } from "@chakra-ui/react";
+import { FaCamera, FaThumbsUp } from "react-icons/fa";
 import { useState } from "react";
 
 const Index = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+
+  const [likeCount, setLikeCount] = useState(0);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -16,6 +18,10 @@ const Index = () => {
     }
     // Implement the file upload logic here
     console.log("Uploading file:", selectedFile);
+  };
+
+  const handleLike = () => {
+    setLikeCount(likeCount + 1);
   };
 
   return (
@@ -45,6 +51,15 @@ const Index = () => {
                 Upload Photo
               </Button>
               <Image src="/images/sample-photo.jpg" alt="Sample Photo" borderRadius="md" />
+            <Flex align="center">
+                <IconButton
+                  icon={<FaThumbsUp />}
+                  onClick={handleLike}
+                  colorScheme="blue"
+                  aria-label="Like Photo"
+                />
+                <Text ml={2}>{likeCount} {likeCount === 1 ? "like" : "likes"}</Text>
+              </Flex>
             </VStack>
           </Container>
         </Box>
