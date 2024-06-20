@@ -1,7 +1,23 @@
-import { Box, Container, VStack, Heading, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Container, VStack, Heading, Text, Image, Flex, Button, Input } from "@chakra-ui/react";
 import { FaCamera } from "react-icons/fa";
+import { useState } from "react";
 
 const Index = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    if (!selectedFile) {
+      alert("Please select a file first!");
+      return;
+    }
+    // Implement the file upload logic here
+    console.log("Uploading file:", selectedFile);
+  };
+
   return (
     <Container maxW="container.xl" p={0}>
       <Flex direction="column" minH="100vh">
@@ -24,6 +40,10 @@ const Index = () => {
               <Text fontSize="lg" textAlign="center">
                 Share your favorite moments with the world.
               </Text>
+              <Input type="file" onChange={handleFileChange} />
+              <Button onClick={handleUpload} colorScheme="blue" leftIcon={<FaCamera />}>
+                Upload Photo
+              </Button>
               <Image src="/images/sample-photo.jpg" alt="Sample Photo" borderRadius="md" />
             </VStack>
           </Container>
